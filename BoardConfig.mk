@@ -39,12 +39,11 @@ TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 
 # Platform
-BOARD_USES_QCOM_HARDWARE := true
 TARGET_BOARD_PLATFORM := sm6150
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno612
 
 # Kernel
-BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=1 androidboot.usbcontroller=a600000.dwc3 firmware_class.path=/firmware/image nokaslr printk.devkmsg=on
+BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=1 androidboot.usbcontroller=a600000.dwc3 nokaslr printk.devkmsg=on
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_OFFSET      := 0x00008000
@@ -68,12 +67,7 @@ TARGET_USE_SDCLANG := true
 
 # Avb
 BOARD_AVB_ENABLE := true
-ifeq ($(BOARD_AVB_ENABLE), true)
-   BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
-   BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA2048
-   BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
-   BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
-endif
+BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 262144
@@ -93,6 +87,7 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 
 # File systems
 TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 
 # Workaround for error copying vendor files to recovery ramdisk
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -126,6 +121,11 @@ TW_Y_OFFSET := 77
 TW_H_OFFSET := -77
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone16/temp"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file"
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+TW_CRYPTO_SYSTEM_VOLD_DEBUG := true
+TW_NO_SCREEN_BLANK := true
+TW_EXCLUDE_TWRPAPP := true
 
 # Security Patch Hack to prevent Anti Rollback
 PLATFORM_SECURITY_PATCH := 2025-12-31
