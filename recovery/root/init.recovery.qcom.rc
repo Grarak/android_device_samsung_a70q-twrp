@@ -28,7 +28,10 @@
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+
     export ANDROID_ROOT /system_root
+    export LD_CONFIG_FILE /sbin/ld.config.txt
+
     chmod 0660 /dev/qseecom
     chown system drmrpc /dev/qseecom
     chmod 0664 /dev/ion
@@ -82,6 +85,15 @@ service keymaster-4-0 /sbin/android.hardware.keymaster@4.0-service
     user root
     group root
     disabled
+    seclabel u:r:recovery:s0
+
+service ldconfigtxt /sbin/touch /etc/ld.config.txt
+    oneshot
+    seclabel u:r:recovery:s0
+
+service time_daemon /sbin/time_daemon
+    user root
+    group root
     seclabel u:r:recovery:s0
 
 on boot

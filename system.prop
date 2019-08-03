@@ -2,3 +2,4 @@ sys.usb.controller=a600000.dwc3
 sys.usb.rndis.func.name=rndis_bam
 sys.usb.rmnet.func.name=rmnet_bam
 ro.hardware.gatekeeper=mdfpp
+ro.vendor.build.security_patch=2099-12-31
