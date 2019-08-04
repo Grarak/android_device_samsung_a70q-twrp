@@ -40,12 +40,21 @@ on fs
 
 on init
     start hwservicemanager
+    start prepdecrypt
+    start time_daemon
 
 # Separate copy needed to use /sbin/linker64 instead of /system/bin/linker64
 service sbinqseecomd /sbin/qseecomd
     user root
     group root
     disabled
+    seclabel u:r:recovery:s0
+
+service prepdecrypt /sbin/prepdecrypt.sh
+    oneshot
+    disabled
+    user root
+    group root
     seclabel u:r:recovery:s0
 
 service hwservicemanager /sbin/hwservicemanager
@@ -94,16 +103,26 @@ service ldconfigtxt /sbin/touch /etc/ld.config.txt
 service time_daemon /sbin/time_daemon
     user root
     group root
+    disabled
     seclabel u:r:recovery:s0
 
 on boot
     setprop sys.usb.config adb
 
-on property:ro.crypto.state=encrypted
+on property:crypto.ready=0
+    stop sbinqseecomd
+    stop keymaster-4-0
+    stop gatekeeper-1-0
+    stop servicemanager
+
+on property:crypto.ready=1
     mount vfat /dev/block/bootdevice/by-name/apnhlos /firmware ro
     start sbinqseecomd
 
-on property:ro.crypto.state=encrypted && property:vendor.sys.listeners.registered=true
+on property:crypto.ready=1 && property:vendor.sys.listeners.registered=true
     start keymaster-4-0
     start gatekeeper-1-0
     start servicemanager
+
+on property:sys.usb.config=mtp,adb
+    restart time_daemon
