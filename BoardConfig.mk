@@ -126,6 +126,3 @@ TARGET_USES_LOGD := true
 TW_CRYPTO_SYSTEM_VOLD_DEBUG := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_HAS_EDL_MODE := true
-
-# Hack: prevent anti rollback
-PLATFORM_SECURITY_PATCH := 2019-05-01
