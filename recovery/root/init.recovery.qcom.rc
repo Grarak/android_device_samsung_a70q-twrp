@@ -39,6 +39,9 @@ on fs
     install_keyring
 
 on init
+    wait /dev/block/bootdevice/by-name/system
+    wait /dev/block/bootdevice/by-name/vendor
+
     start hwservicemanager
     start prepdecrypt
     start time_daemon
