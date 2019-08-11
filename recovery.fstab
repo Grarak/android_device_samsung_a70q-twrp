@@ -16,7 +16,7 @@
 /modem         vfat   /dev/block/bootdevice/by-name/modem
 /firmware      vfat   /dev/block/bootdevice/by-name/apnhlos                   flags=display="Firmware";fsflags=ro
 /misc          emmc   /dev/block/bootdevice/by-name/misc
-/dtbo          emmc   /dev/block/bootdevice/by-name/dtbo
+/dtbo          emmc   /dev/block/bootdevice/by-name/dtbo                      flags=display="Dtbo";backup=1
 /efs           ext4   /dev/block/bootdevice/by-name/sec_efs
 /product       ext4   /dev/block/bootdevice/by-name/product
 
