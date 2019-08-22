@@ -26,6 +26,8 @@
 #
 
 on init
+    write /proc/sys/kernel/panic_on_oops 2
+
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
     mount configfs none /config
     mkdir /config/usb_gadget/g1 0770
