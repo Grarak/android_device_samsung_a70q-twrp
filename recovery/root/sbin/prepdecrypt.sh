@@ -26,7 +26,12 @@ else
 fi
 
 relink /v/bin/hw/android.hardware.gatekeeper@1.0-service
-relink /v/bin/hw/android.hardware.keymaster@4.0-service
+if [ -f /v/bin/hw/android.hardware.keymaster@4.0-service.samsung ]; then
+	relink /v/bin/hw/android.hardware.keymaster@4.0-service.samsung
+	mv /sbin/android.hardware.keymaster@4.0-service.samsung /sbin/android.hardware.keymaster@4.0-service
+else
+	relink /v/bin/hw/android.hardware.keymaster@4.0-service
+fi
 relink /v/bin/qseecomd
 
 cp /s/system/lib64/android.hidl.base@1.0.so /sbin/
