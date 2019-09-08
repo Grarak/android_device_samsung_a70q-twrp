@@ -79,6 +79,10 @@ cp /v/lib64/vendor.qti.hardware.tui_comm@1.0.so /vendor/lib64/
 
 ln -s /firmware /vendor/firmware_mnt
 
+if [ -f /s/system/framework/samsungkeystoreutils.jar ]; then
+	setprop keymaster.force true
+fi
+
 umount /v
 umount /s
 rmdir /v
