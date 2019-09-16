@@ -34,12 +34,6 @@ else
 fi
 relink /v/bin/qseecomd
 
-cp /s/system/lib64/android.hidl.base@1.0.so /sbin/
-cp /s/system/lib64/libicuuc.so /sbin/
-cp /s/system/lib64/libion.so /sbin/
-cp /s/system/lib64/vndk-28/libpuresoftkeymasterdevice.so /sbin/
-cp /s/system/lib64/vndk-28/libxml2.so /sbin/
-
 mkdir -p /vendor/lib64/hw
 cp /v/lib64/hw/android.hardware.gatekeeper@1.0-impl.so /vendor/lib64/hw/
 cp /v/lib64/hw/gatekeeper.mdfpp.so /vendor/lib64/hw/
